@@ -29,6 +29,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CelebrationManager.MinIO\CelebrationManager.MinIO.csproj" />
     <ProjectReference Include="..\CelebrationManager.Web.Core\CelebrationManager.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

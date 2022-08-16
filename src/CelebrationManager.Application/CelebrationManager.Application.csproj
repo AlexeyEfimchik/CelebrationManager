@@ -12,6 +12,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CelebrationManager.MinIO\CelebrationManager.MinIO.csproj" />
     <ProjectReference Include="..\CelebrationManager.Core\CelebrationManager.Core.csproj" />
   </ItemGroup>
 </Project>

@@ -22,6 +22,21 @@ namespace CelebrationManager.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.HasSequence("categoriesSeq")
+                .IncrementsBy(10);
+
+            modelBuilder.HasSequence("celebrationsSeq")
+                .IncrementsBy(10);
+
+            modelBuilder.HasSequence("eventTimesSeq")
+                .IncrementsBy(10);
+
+            modelBuilder.HasSequence("filesSeq")
+                .IncrementsBy(10);
+
+            modelBuilder.HasSequence("workingTimesSeq")
+                .IncrementsBy(10);
+
             modelBuilder.Entity("Abp.Application.Editions.Edition", b =>
                 {
                     b.Property<int>("Id")
@@ -1567,6 +1582,257 @@ namespace CelebrationManager.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("CelebrationManager.Celebrations.Categories.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "categoriesSeq");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Categories.CelebrationCategory", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CelebrationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "CelebrationId");
+
+                    b.HasIndex("CelebrationId");
+
+                    b.ToTable("CelebrationsCategory");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Celebration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "celebrationsSeq");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EventTimeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventTimeId");
+
+                    b.ToTable("Celebrations", (string)null);
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.EventTimes.EventTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "eventTimesSeq");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndEvent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("StartEvent")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventTimes", (string)null);
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Files.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "filesSeq");
+
+                    b.Property<int?>("CelebrationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CelebrationId");
+
+                    b.ToTable("Files", (string)null);
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.WorkingTimes.CelebrationWorkingTime", b =>
+                {
+                    b.Property<int>("WorkingTimeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CelebrationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkingTimeId", "CelebrationId");
+
+                    b.HasIndex("CelebrationId");
+
+                    b.ToTable("CelebrationsWorkingTime");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.WorkingTimes.WorkingTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"), "workingTimesSeq");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkingTimes", (string)null);
+                });
+
             modelBuilder.Entity("CelebrationManager.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -1849,6 +2115,63 @@ namespace CelebrationManager.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("CelebrationManager.Celebrations.Categories.CelebrationCategory", b =>
+                {
+                    b.HasOne("CelebrationManager.Celebrations.Categories.Category", "Category")
+                        .WithMany("CelebrationsCategoty")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CelebrationManager.Celebrations.Celebration", "Celebration")
+                        .WithMany("CelebrationsCategoty")
+                        .HasForeignKey("CelebrationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Celebration");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Celebration", b =>
+                {
+                    b.HasOne("CelebrationManager.Celebrations.EventTimes.EventTime", "EventTime")
+                        .WithMany("Celebrations")
+                        .HasForeignKey("EventTimeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("EventTime");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Files.File", b =>
+                {
+                    b.HasOne("CelebrationManager.Celebrations.Celebration", "Celebration")
+                        .WithMany()
+                        .HasForeignKey("CelebrationId");
+
+                    b.Navigation("Celebration");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.WorkingTimes.CelebrationWorkingTime", b =>
+                {
+                    b.HasOne("CelebrationManager.Celebrations.Celebration", "Celebration")
+                        .WithMany("CelebrationsWorkingTime")
+                        .HasForeignKey("CelebrationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CelebrationManager.Celebrations.WorkingTimes.WorkingTime", "WorkingTime")
+                        .WithMany()
+                        .HasForeignKey("WorkingTimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Celebration");
+
+                    b.Navigation("WorkingTime");
+                });
+
             modelBuilder.Entity("CelebrationManager.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("CelebrationManager.Authorization.Users.User", "CreatorUser")
@@ -1945,6 +2268,23 @@ namespace CelebrationManager.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Categories.Category", b =>
+                {
+                    b.Navigation("CelebrationsCategoty");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.Celebration", b =>
+                {
+                    b.Navigation("CelebrationsCategoty");
+
+                    b.Navigation("CelebrationsWorkingTime");
+                });
+
+            modelBuilder.Entity("CelebrationManager.Celebrations.EventTimes.EventTime", b =>
+                {
+                    b.Navigation("Celebrations");
                 });
 #pragma warning restore 612, 618
         }

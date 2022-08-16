@@ -20,6 +20,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.IO;
+using CelebrationManager.MinIO;
+using CelebrationManager.MinIO.Configurations;
 
 namespace CelebrationManager.Web.Host.Startup
 {
@@ -53,6 +55,9 @@ namespace CelebrationManager.Web.Host.Startup
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, _appConfiguration);
+
+            services.AddTransient<IFileStorage, MinIOFileStorage>();
+            services.AddTransient<IMinIOConfiguration, MinIOConfiguration>();
 
             services.AddSignalR();
 
